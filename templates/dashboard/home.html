@@ -1,14 +1,43 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Welcome, {{ user.first_name|default:user.username }}!</h2>
-<ul>
-    <li>Role: {{ user.get_role_display }}</li>
-    <li>Course: {{ user.course|default:"Not set" }}</li>
-    <li>Members: {{ member_count }}</li>
-    <li>Last login: {{ user.last_login|date:"M d, Y" }}</li>
-</ul>
-{% if is_admin %}
-    <a href="{% url 'admin_panel' %}">Open admin panel</a>
-{% endif %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card p-4">
+            <h3 class="mb-4" style="color:var(--cc-primary);">Welcome, {{ user.first_name|default:user.username }}!</h3>
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <div class="card bg-light p-3 text-center">
+                        <small class="text-muted text-uppercase">Role</small>
+                        <strong class="fs-5">{{ user.get_role_display }}</strong>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card bg-light p-3 text-center">
+                        <small class="text-muted text-uppercase">Course</small>
+                        <strong class="fs-5">{{ user.course|default:"Not set" }}</strong>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card bg-light p-3 text-center">
+                        <small class="text-muted text-uppercase">Members</small>
+                        <strong class="fs-5">{{ member_count }}</strong>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card bg-light p-3 text-center">
+                        <small class="text-muted text-uppercase">Last Login</small>
+                        <strong class="fs-5">{{ user.last_login|date:"M d, Y"|default:"—" }}</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 d-flex gap-2">
+                <a href="{% url 'profile' %}" class="btn btn-primary px-4">Edit Profile</a>
+                {% if is_admin %}
+                    <a href="{% url 'admin_panel' %}" class="btn btn-outline-dark px-4">Admin Panel</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
